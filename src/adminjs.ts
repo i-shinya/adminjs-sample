@@ -1,14 +1,19 @@
-import AdminJS from 'adminjs'
+import AdminJS, { ComponentLoader } from 'adminjs'
 import * as AdminJSPrisma from '@adminjs/prisma'
 import { PrismaClient } from '@prisma/client'
 
-AdminJS.registerAdapter({
-  Resource: AdminJSPrisma.Resource,
-  Database: AdminJSPrisma.Database,
-})
+import importExportFeature from '@adminjs/import-export'
 
 export const newAdminJS = (prisma: PrismaClient): AdminJS => {
+  AdminJS.registerAdapter({
+    Resource: AdminJSPrisma.Resource,
+    Database: AdminJSPrisma.Database,
+  })
+
+  const componentLoader = new ComponentLoader()
+
   const adminOptions = {
+    componentLoader,
     rootPath: '/admin',
     resources: [
       // ここでモデルを登録する
@@ -17,6 +22,7 @@ export const newAdminJS = (prisma: PrismaClient): AdminJS => {
           model: AdminJSPrisma.getModelByName('users'),
           client: prisma,
         },
+        features: [importExportFeature({ componentLoader })],
         options: {},
       },
       {
@@ -24,6 +30,7 @@ export const newAdminJS = (prisma: PrismaClient): AdminJS => {
           model: AdminJSPrisma.getModelByName('authentication_providers'),
           client: prisma,
         },
+        features: [importExportFeature({ componentLoader })],
         options: {},
       },
       {
@@ -31,6 +38,7 @@ export const newAdminJS = (prisma: PrismaClient): AdminJS => {
           model: AdminJSPrisma.getModelByName('chat_session'),
           client: prisma,
         },
+        features: [importExportFeature({ componentLoader })],
         options: {},
       },
       {
@@ -38,6 +46,7 @@ export const newAdminJS = (prisma: PrismaClient): AdminJS => {
           model: AdminJSPrisma.getModelByName('chat_history'),
           client: prisma,
         },
+        features: [importExportFeature({ componentLoader })],
         options: {},
       },
     ],

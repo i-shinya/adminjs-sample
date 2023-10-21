@@ -50,6 +50,8 @@ npx prisma init
 npm i @adminjs/prisma
 ```
 
+.env の DATABASE_URL を変更
+
 ### generate
 
 ```bash
