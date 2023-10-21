@@ -2,11 +2,12 @@
   "name": "adminjs-sample",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev": "concurrently \"tsc -w\" \"nodemon --delay 0.5 --watch src --ext '.ts' --exec 'node' dist/index.js\"",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "lint:fix": "eslint 'src/**/*.{js,ts}' --fix"
   },
@@ -16,12 +17,15 @@
   "dependencies": {
     "@fastify/swagger": "^8.12.0",
     "@fastify/swagger-ui": "^1.10.1",
+    "adminjs": "^7.3.0",
     "fastify": "^4.24.3"
   },
   "devDependencies": {
+    "@adminjs/fastify": "^4.0.1",
     "@types/node": "^20.8.7",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
