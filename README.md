@@ -39,3 +39,19 @@ migrate -path db/migrations -database 'postgres://postgres:postgres@localhost:25
 ```bash
 migrate -path db/migrations -database 'postgres://postgres:postgres@localhost:25432/postgres?sslmode=disable' up 1
 ```
+
+## prisma
+
+### setup
+
+```bash
+npm i prisma
+npx prisma init
+npm i @adminjs/prisma
+```
+
+### generate
+
+```bash
+npm run prisma:update
+```

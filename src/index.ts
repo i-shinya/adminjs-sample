@@ -2,16 +2,17 @@ import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
 import { healthRoutes } from './router/health.js'
-import AdminJS from 'adminjs'
 import AdminJSFastify from '@adminjs/fastify'
+import { PrismaClient } from '@prisma/client'
+import { newAdminJS } from './adminjs.js'
+
+const prisma = new PrismaClient()
 
 const start = async () => {
   const server = fastify()
-  const admin = new AdminJS({
-    databases: [],
-    rootPath: '/admin',
-  })
 
+  // adminjsの設定
+  const admin = newAdminJS(prisma)
   await AdminJSFastify.buildRouter(admin, server)
 
   // swaggerの設定
