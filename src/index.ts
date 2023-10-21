@@ -1,15 +1,17 @@
-import fastifySwagger from '@fastify/swagger';
-import fastifySwaggerUi from '@fastify/swagger-ui';
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
+import { healthRoutes } from './router/health'
 
 const server = fastify()
 
 // swaggerの設定
-server.register(fastifySwagger);
-server.register(fastifySwaggerUi);
+server.register(fastifySwagger)
+server.register(fastifySwaggerUi)
 
-server.get('/ping', async (request, reply) => {
-  return 'pong\n'
+// router
+server.register(healthRoutes, {
+  prefix: '/health',
 })
 
 server.listen({ port: 8080 }, (err, address) => {
@@ -18,5 +20,7 @@ server.listen({ port: 8080 }, (err, address) => {
     process.exit(1)
   }
   console.log(`Server listening at ${address}`)
-  console.log(`swagger ui http://localhost:8080/documentation/static/index.html`)
+  console.log(
+    `swagger ui http://localhost:8080/documentation/static/index.html`,
+  )
 })
