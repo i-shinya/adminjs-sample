@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  #      POSTGRES_HOST_AUTH_METHOD: trust
+
+  ## postgres用の簡易web UI
+  # - 以下情報でログイン
+  # DB種別：PostgreSQL
+  # ホスト：postgres
+  # ユーザ名：postgres
+  # パスワード：postgres
+  ##
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8082:8080"
+    environment:
+      ADMINER_DESIGN: ng9
